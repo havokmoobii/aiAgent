@@ -1,18 +1,22 @@
 import unittest
 
-from functions.write_file import write_file
+from functions.run_python import run_python_file
 
-class TestWriteFile(unittest.TestCase):
-    def test_lorem(self):
-        result = write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
+class TestRunFile(unittest.TestCase):
+    def test_calculator(self):
+        result = run_python_file("calculator", "main.py")
         print(result + "\n")
 
-    def test_morelorem(self):
-        result = write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet")
+    def test_tests(self):
+        result = run_python_file("calculator", "tests.py")
         print(result + "\n")
 
-    def test_temp_oob(self):
-        result = write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
+    def test_oob(self):
+        result = run_python_file("calculator", "../main.py")
+        print(result + "\n")
+
+    def test_nonexistant(self):
+        result = run_python_file("calculator", "nonexistent.py")
         print(result + "\n")
 
 if __name__ == "__main__":
