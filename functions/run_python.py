@@ -1,6 +1,8 @@
 import os
 import subprocess
 
+from google.genai import types
+
 from functions.config import RUN_TIMEOUT
 
 def run_python_file(working_directory, file_path):
@@ -28,3 +30,17 @@ def run_python_file(working_directory, file_path):
     
     except Exception as e:
         return f"Error: executing Python file: {e}"
+    
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description=f"Attempts to use Python to execute the file at the specified file path, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path, relative to the working directory, where the file is located.",
+            ),
+        },
+    ),
+)
